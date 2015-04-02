@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+	<script src="js/libs/jquery/jquery.js"></script>
+        <title>RodiMote</title>
+    </head>
+    <body>
+        <br>
+        <center><h1>RodiMote</h1></center>
+        <p style="margin-left: 20px;">IP de Rodi <input id="ip"></p>
+        <div style="position: absolute;    bottom: 0;    margin-bottom: 40px;    margin-left: 40px; width: 80%">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" id="forward"  style="width: 50px; height: 50px;">&uarr;</button></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><button type="button"  id="left" style="width: 50px; height: 50px;">&larr;</button></td>
+                    <td></td>
+                    <td><button type="button" id="right" style="width: 50px; height: 50px;">&rarr;</button></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" id="backward" style="width: 50px; height: 50px;">&darr;</button></td>
+                    <td></td>
+                </tr>
+            </table>
+                <div style="position: absolute;    bottom: 0; right: 0; margin-bottom: 50px;">
+         <button id="stop" style="width: 50px; height: 50px;">&#9726;</button>
+    </div>
+        </div>
+
+        <script>
+            var accion = null; //orden para rodi
+            var estado = false; //estado de un ajax request
+            $( "button" )
+              .mouseup(function() {
+                  parar();
+              })
+              .mousedown(function(a) {
+                  var boton = a.toElement.id;
+                  mover(boton);
+            });
+            function parar(){
+                accion = '94/94/';
+                if(!estado){
+                    estado = true;
+                    llamada(accion);
+                    accion = null;
+                }
+            }
+            function mover(boton){
+                switch(boton) {
+                    case 'forward':
+                        accion = '180/180/';
+                        break;
+                    case 'backward':
+                        accion = '0/0/';
+                        break;
+                    case 'right':
+                        accion = '180/0/';
+                        break;
+                    case 'left':
+                        accion = '0/180/';
+                        break;
+                    case 'stop':
+                        parar();
+                        break;
+                }
+                //verifica si existe una llamada en proceso, si no, queda la orden pendiente
+                if(!estado){
+                    estado = true;
+                    llamada(accion);
+                    accion = null;
+                }
+            }
+
+            function llamada(p_accion){
+                var ip = $( "#ip" ).val();
+              $.ajax({
+                  url: 'http://'+ip+'/3/'+p_accion,
+                  timeout:3000,
+                  success: function(){
+                      //queda libre para realizar otra llamada y luego verifica si hay una accion a realizar
+                      estado = false;
+                      if(accion === null){
+                          estado = true; 
+                          llamada(accion);
+                      }
+                  },
+                  failure:function(){
+                      estado = false;      
+                  },
+                  error:function(){
+                      estado = false;
+                  }
+              });
+            }
+    </script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
