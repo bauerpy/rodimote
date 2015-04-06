@@ -30,7 +30,7 @@
     <body>
         <br>
         <center><h1>RodiMote</h1></center>
-        <p style="margin-left: 20px;">IP de Rodi <input id="ip"></p>
+        <p style="margin-left: 20px;">IP de Rodi <input id="ip" value="192.168.4.1"></p>
         <div style="position: absolute;    bottom: 0;    margin-bottom: 40px;    margin-left: 40px; width: 80%">
             <table>
                 <tr>
@@ -68,7 +68,7 @@
                   mover(boton);
             });
             function parar(){
-                accion = '94/94/';
+                accion = '0/0/';
                 if(!estado){
                     estado = true;
                     llamada(accion);
@@ -78,16 +78,16 @@
             function mover(boton){
                 switch(boton) {
                     case 'forward':
-                        accion = '180/180/';
+                        accion = '100/100/';
                         break;
                     case 'backward':
-                        accion = '0/0/';
+                        accion = '-100/-100/';
                         break;
                     case 'right':
-                        accion = '180/0/';
+                        accion = '100/-100/';
                         break;
                     case 'left':
-                        accion = '0/180/';
+                        accion = '-100/100/';
                         break;
                     case 'stop':
                         parar();
