@@ -28,34 +28,37 @@
         <title>RodiMote</title>
     </head>
     <body>
-        <br>
-        <center><h1>RodiMote</h1></center>
-        <p style="margin-left: 20px;">IP de Rodi <input id="ip" value="192.168.4.1"></p>
-        <div style="position: absolute;    bottom: 0;    margin-bottom: 40px;    margin-left: 40px; width: 80%">
-            <table>
-                <tr>
+        <div  style="width: 100%; height: 100vh;">
+        <table style=" height: 100%; padding: 20px;">
+            <tr style="vertical-align: top;">
+                    <td colspan="4">
+                       <center><h1>RodiMote</h1></center>
+                         <p>IP de Rodi <input id="ip" value="192.168.4.1"></p> 
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
                     <td></td>
                     <td>
                         <button type="button" id="forward"  style="width: 50px; height: 50px;">&uarr;</button></td>
                     <td></td>
+                    <td style="width: 100%"> </td>
+                    
                 </tr>
-                <tr>
+                <tr style="height: 50px;">
                     <td><button type="button"  id="left" style="width: 50px; height: 50px;">&larr;</button></td>
                     <td></td>
                     <td><button type="button" id="right" style="width: 50px; height: 50px;">&rarr;</button></td>
+                    <td><button id="stop" style="width: 50px; height: 50px; float:right;">&#9726;</button></td>
                 </tr>
-                <tr>
+                <tr style="height: 50px;">
                     <td></td>
                     <td>
                         <button type="button" id="backward" style="width: 50px; height: 50px;">&darr;</button></td>
                     <td></td>
+                    <td></td>
                 </tr>
             </table>
-                <div style="position: absolute;    bottom: 0; right: 0; margin-bottom: 50px;">
-         <button id="stop" style="width: 50px; height: 50px;">&#9726;</button>
-    </div>
-        </div>
-
+            </div>
         <script>
             var accion = null; //orden para rodi
             var estado = false; //estado de un ajax request

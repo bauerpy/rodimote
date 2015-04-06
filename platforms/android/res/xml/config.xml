@@ -3,10 +3,10 @@
     <preference name="loglevel" value="DEBUG" />
     <name>RodiMote</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+       	Control remoto para rodi.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="bauerpy@gmail.com" href="https://www.linkedin.com/in/bauerpy">
+        Juan Bauer
     </author>
     <content src="index.html" />
     <access origin="*" />
