@@ -68,7 +68,7 @@
                   mover(boton);
             });
             function parar(){
-                accion = '94/94/';
+                accion = '0/0/';
                 if(!estado){
                     estado = true;
                     llamada(accion);
@@ -78,16 +78,16 @@
             function mover(boton){
                 switch(boton) {
                     case 'forward':
-                        accion = '0/180/';
+                        accion = '100/100/';
                         break;
                     case 'backward':
-                        accion = '180/0/';
+                        accion = '-100/-100/';
                         break;
                     case 'right':
-                        accion = '0/0/';
+                        accion = '100/-100/';
                         break;
                     case 'left':
-                        accion = '180/180/';
+                        accion = '-100/100/';
                         break;
                     case 'stop':
                         parar();
